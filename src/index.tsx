@@ -5,10 +5,13 @@ import {
     CommandRoleOption,
     createClient,
     EmbedFooter,
+    ButtonStyle,
     EmbedField,
+    ActionRow,
     Intents,
     Command,
     Embed,
+    Button,
 } from "lilybird";
 
 
@@ -48,7 +51,6 @@ await createClient({
             await client.rest.createGuildApplicationCommand(client.id, process.env.TEST_GUILD_ID, command);
         },
         async interactionCreate(interaction) {
-            console.log(interaction)
             if (interaction.inGuild()) {
                 if (interaction.isApplicationCommandInteraction()) {
                     await interaction.deferReply();
@@ -65,24 +67,20 @@ await createClient({
                     setTimeout(async () => {
                         await interaction.editReply(`<@${interaction.data.options.getUser("user", true)}>`);
                         await interaction.followUp(`*hiii~*`, { embeds: [embed] });
-                        await interaction.followUp("ignore this", {
-                            components: [
-                                {
-                                    type: 1,
-                                    components: [
-                                        {
-                                            type: 2,
-                                            label: "CLICK",
-                                            style: 1,
-                                            custom_id: "idk"
-                                        }
-                                    ]
-                                }
-                            ]
-                        })
+
+                        const simpleButtonRow = (
+                            <ActionRow>
+                                <Button id="test-p-button" label="Click Me" style={ButtonStyle.Primary} disabled />
+                                <Button id="test-s-button" label="Graayy" style={ButtonStyle.Secondary} disabled />
+                                <Button id="test-sc-button" label="Okay" style={ButtonStyle.Success} disabled />
+                                <Button id="test-d-button" label="No" style={ButtonStyle.Danger} disabled />
+                            </ActionRow>
+                        )
+
+                        await interaction.followUp("Here, some buttons", { components: [simpleButtonRow] })
                     }, 1000);
                 }
             }
-        },
+        }
     }
 });
