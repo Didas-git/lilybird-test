@@ -1,5 +1,3 @@
-import { inspect } from "util";
-
 import {
     CommandSubCommandGroupOption,
     CommandSubCommandOption,
@@ -47,7 +45,7 @@ await createClient({
                 </Command>
             );
 
-            console.log(inspect(command, false, 3, true));
+            await client.rest.createGuildApplicationCommand(client.id, process.env.TEST_GUILD_ID, command);
         },
         async interactionCreate(interaction) {
             console.log(interaction)
@@ -88,14 +86,3 @@ await createClient({
         },
     }
 });
-
-
-// import { ApplicationCommandOptionType, Command, CommandOption } from "lilybird";
-
-// console.log(
-//     <Command name="Test">
-//         <CommandOption type={ApplicationCommandOptionType.SUB_COMMAND} name="test" description="Some test stuff" >
-//             <CommandOption type={ApplicationCommandOptionType.BOOLEAN} name="wtf" description="why" />
-//         </CommandOption>
-//     </Command>
-// )
