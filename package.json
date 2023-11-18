@@ -1,0 +1,13 @@
+{
+  "name": "lilybird-test",
+  "type": "module",
+  "scripts": {
+    "dev": "bun ./src/index.tsx"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "latest"
+  }
+}
