@@ -1,8 +1,5 @@
-import {
-    CommandNumberOption,
-    Command,
-    Event
-} from "lilybird"
+import { ApplicationCommand, NumberOption } from "lilybird/jsx";
+import { Event } from "lilybird"
 
 export default {
     event: "ready",
@@ -10,11 +7,13 @@ export default {
         // console.log("Connected!\n", client);
 
         const command = (
-            <Command name="test" description="its just a test">
-                <CommandNumberOption name="num" description="a num" required />
-            </Command>
+            <ApplicationCommand name="test" description="its just a test">
+                <NumberOption name="num" description="a num" required />
+            </ApplicationCommand>
         );
 
-        await client.rest.createGuildApplicationCommand(client.id, process.env.TEST_GUILD_ID, command);
+        await client.rest.createGuildApplicationCommand(client.user.id, process.env.TEST_GUILD_ID, command);
+
+        console.log(await client.ping())
     },
 } as Event<"ready">

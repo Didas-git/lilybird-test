@@ -5,9 +5,9 @@
     "dev": "bun ./src/index.tsx"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "^1.0.14"
   },
   "peerDependencies": {
-    "typescript": "latest"
+    "typescript": "^5.0.0"
   }
 }

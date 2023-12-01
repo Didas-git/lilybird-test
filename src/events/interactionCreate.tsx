@@ -1,12 +1,11 @@
+import { ButtonStyle, Event } from "lilybird"
 import {
     EmbedFooter,
-    ButtonStyle,
     EmbedField,
     ActionRow,
     Embed,
     Button,
-    Event
-} from "lilybird"
+} from "lilybird/jsx"
 
 export default {
     event: "interactionCreate",
@@ -14,8 +13,6 @@ export default {
         if (interaction.inGuild()) {
             if (interaction.isApplicationCommandInteraction()) {
                 await interaction.deferReply();
-
-                console.log("Inside Slash:", process.memoryUsage().heapUsed / 1024 / 1024)
 
                 const embed = (
                     <Embed title="Hello from TSX" color={0xff00ef} timestamp>
@@ -28,7 +25,7 @@ export default {
 
                 setTimeout(async () => {
                     await interaction.editReply(`<@${interaction.data.options.getNumber("num", true)}>`);
-                    await interaction.followUp(`*hiii~*`, { embeds: [embed] });
+                    console.log(await interaction.followUp(`*hiii~*`, { embeds: [embed] }));
 
                     const simpleButtonRow = (
                         <ActionRow>
@@ -37,11 +34,9 @@ export default {
                             <Button id="test-sc-button" label="Okay" style={ButtonStyle.Success} disabled />
                             <Button id="test-d-button" label="No" style={ButtonStyle.Danger} disabled />
                         </ActionRow>
-                    )
+                    );
 
-                    await interaction.followUp("Here, some buttons", { components: [simpleButtonRow] })
-
-                    console.log(`Finished answering ${interaction.member.user.username}'s request`)
+                    await interaction.followUp("Here, some buttons", { components: [simpleButtonRow] });
                 }, 1000);
             }
         }

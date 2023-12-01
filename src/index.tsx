@@ -5,10 +5,10 @@ import {
 } from "lilybird";
 
 const listeners = await createHandler({
-    listeners: `${import.meta.dir}/events`
+    dirs: {
+        listeners: `${import.meta.dir}/events`
+    }
 });
-
-console.log("Before Client:", process.memoryUsage().heapUsed / 1024 / 1024)
 
 await createClient({
     token: process.env.TOKEN,
@@ -16,5 +16,3 @@ await createClient({
     attachDebugListener: true,
     ...listeners
 });
-
-console.log("After client:", process.memoryUsage().heapUsed / 1024 / 1024)
